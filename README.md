@@ -6,12 +6,12 @@ _A simple website that lets you add to your to do list and then check it off._
 
 <br>
 
-See it in action [here](#)
+See it in action [here](https://naturalnick.github.io/to-do-list/)
 
 <br>
 
 Screenshot:
-<image src="#">
+<image src="images/screenshot.png">
 
 ## Summary
 
