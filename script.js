@@ -1,35 +1,42 @@
-document.getElementById("add-btn").addEventListener("click", function() {
+
+document.getElementById("add-btn").addEventListener("click", function () {
 
   var newTask = document.getElementById("new-task-field").value;
+  if (newTask != "") addNewTask(newTask);
 
-  if (newTask != "") {
-    var html = `<li class="task"><input class="task-checkbox" type="checkbox"> ${newTask}<img class="x-img" src="images/remove.png"></li>`
-
-    document.getElementById("task-list").insertAdjacentHTML("beforeend", html);
-
-    addNewTaskEventListeners(document.getElementsByClassName("task"));
-  };
+  document.getElementById("new-task-field").value = "";
+  document.getElementById("new-task-field").focus();
 
 });
 
-function addNewTaskEventListeners(taskArray) {
-  var currentTask = taskArray[taskArray.length - 1];
-  var checkboxArray = document.getElementsByClassName("task-checkbox");
-  var xArray = document.getElementsByClassName("x-img");
+document.getElementById("new-task-field").addEventListener("keyup", function (event) {
+  if (event.key === "Enter") {
+    document.getElementById("add-btn").click();
+  }
+});
 
-  checkboxArray[taskArray.length - 1].addEventListener("change", function() {
-    console.log(this)
+function addNewTask(taskTxt) {
+
+  let html = `<li class="task"><input class="task-checkbox" type="checkbox"> ${taskTxt}<img class="x-img" src="images/remove.png"></li>`
+
+  document.getElementById("task-list").insertAdjacentHTML("beforeend", html);
+
+  let taskArray = document.getElementsByClassName("task");
+  var checkboxArray = document.getElementsByClassName("task-checkbox");
+  var xImgArray = document.getElementsByClassName("x-img");
+
+  checkboxArray[taskArray.length - 1].addEventListener("change", function () {
+    
     if (this.checked) {
-      this.parentNode.classList.add("crossed-out");
-      //this part is broken. TODO later
-      xArray[taskArray.length - 1].style.visibility = "visible";
+      this.parentElement.style.textDecoration = "line-through";
+      this.parentElement.getElementsByTagName("img")[0].style.visibility = "visible";
     } else {
-      this.parentNode.classList.remove("crossed-out");
-      xArray[taskArray.length - 1].style.visibility = "hidden";
+      this.parentElement.style.textDecoration = "none";
+      this.parentElement.getElementsByTagName("img")[0].style.visibility = "hidden";
     };
   });
 
-  xArray[taskArray.length - 1].addEventListener("click", function() {
-    this.parentNode.removeChild(currentTask);
+  xImgArray[taskArray.length - 1].addEventListener("click", function () {
+    this.parentElement.remove();
   });
 };

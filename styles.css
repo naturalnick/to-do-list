@@ -2,6 +2,11 @@ body {
   text-align: center;
 }
 
+h1 {
+  font-size: 30pt;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
 .new-task-field {
   font-size: 14px;
   border: 1px solid gray;
@@ -34,7 +39,7 @@ ul li {
 }
 
 .task-checkbox {
-/* make bigger? */
+  margin-right: 8px;
 }
 
 .x-img {
@@ -42,8 +47,4 @@ ul li {
   float: right;
   padding: 0;
   visibility: hidden;
-}
-
-.crossed-out {
-  text-decoration: line-through;
 }
