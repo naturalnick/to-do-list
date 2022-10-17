@@ -1,7 +1,8 @@
 
+
 document.getElementById("add-btn").addEventListener("click", function () {
 
-  var newTask = document.getElementById("new-task-field").value;
+  let newTask = document.getElementById("new-task-field").value;
   if (newTask != "") addNewTask(newTask);
 
   document.getElementById("new-task-field").value = "";
@@ -22,11 +23,10 @@ function addNewTask(taskTxt) {
   document.getElementById("task-list").insertAdjacentHTML("beforeend", html);
 
   let taskArray = document.getElementsByClassName("task");
-  var checkboxArray = document.getElementsByClassName("task-checkbox");
-  var xImgArray = document.getElementsByClassName("x-img");
+  let checkboxArray = document.getElementsByClassName("task-checkbox");
+  let xImgArray = document.getElementsByClassName("x-img");
 
   checkboxArray[taskArray.length - 1].addEventListener("change", function () {
-    
     if (this.checked) {
       this.parentElement.style.textDecoration = "line-through";
       this.parentElement.getElementsByTagName("img")[0].style.visibility = "visible";
