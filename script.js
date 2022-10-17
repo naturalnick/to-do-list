@@ -1,30 +1,31 @@
 
-
-document.getElementById("add-btn").addEventListener("click", function () {
-
-  let newTask = document.getElementById("new-task-field").value;
-  if (newTask != "") addNewTask(newTask);
-
-  document.getElementById("new-task-field").value = "";
-  document.getElementById("new-task-field").focus();
-
-});
+document.getElementById("add-btn").addEventListener("click", addNewTask);
 
 document.getElementById("new-task-field").addEventListener("keyup", function (event) {
-  if (event.key === "Enter") {
-    document.getElementById("add-btn").click();
-  }
+  if (event.key === "Enter") document.getElementById("add-btn").click();
 });
 
-function addNewTask(taskTxt) {
+function addNewTask() {
+  const newTask = document.getElementById("new-task-field").value;
+  if (newTask != "") {
+    addTaskHtml(newTask);
+    addTaskEventListeners();
+    clearNewTaskField();
+  }
+};
 
-  let html = `<li class="task"><input class="task-checkbox" type="checkbox"> ${taskTxt}<img class="x-img" src="images/remove.png"></li>`
+function addTaskHtml(task) {
+  const inputHTML = '<input class="task-checkbox" type="checkbox">';
+  const imgHTML = '<img class="x-img" src="images/remove.png">'
+  const taskHTML = `<li class="task">${inputHTML} ${task}${imgHTML}</li>`
 
-  document.getElementById("task-list").insertAdjacentHTML("beforeend", html);
+  document.getElementById("task-list").insertAdjacentHTML("beforeend", taskHTML);
+}
 
-  let taskArray = document.getElementsByClassName("task");
-  let checkboxArray = document.getElementsByClassName("task-checkbox");
-  let xImgArray = document.getElementsByClassName("x-img");
+function addTaskEventListeners() {
+  const taskArray = document.getElementsByClassName("task");
+  const checkboxArray = document.getElementsByClassName("task-checkbox");
+  const xImgArray = document.getElementsByClassName("x-img");
 
   checkboxArray[taskArray.length - 1].addEventListener("change", function () {
     crossOut(this)
@@ -34,7 +35,7 @@ function addNewTask(taskTxt) {
   xImgArray[taskArray.length - 1].addEventListener("click", function () {
     this.parentElement.remove();
   });
-};
+}
 
 function crossOut(task) {
   const taskToCrossOut = task.parentElement;
@@ -51,4 +52,9 @@ function hideDeleteButton(task) {
   } else {
     task.parentElement.getElementsByTagName("img")[0].style.visibility = "hidden";
   };
+}
+
+function clearNewTaskField() {
+  document.getElementById("new-task-field").value = "";
+  document.getElementById("new-task-field").focus();
 }

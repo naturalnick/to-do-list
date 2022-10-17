@@ -1,10 +1,10 @@
 body {
   text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 h1 {
   font-size: 30pt;
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
 
 .new-task-field {
