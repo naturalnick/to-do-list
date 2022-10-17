@@ -48,3 +48,7 @@ ul li {
   padding: 0;
   visibility: hidden;
 }
+
+.crossed-out {
+  text-decoration: line-through;
+}

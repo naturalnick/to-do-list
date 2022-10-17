@@ -27,16 +27,28 @@ function addNewTask(taskTxt) {
   let xImgArray = document.getElementsByClassName("x-img");
 
   checkboxArray[taskArray.length - 1].addEventListener("change", function () {
-    if (this.checked) {
-      this.parentElement.style.textDecoration = "line-through";
-      this.parentElement.getElementsByTagName("img")[0].style.visibility = "visible";
-    } else {
-      this.parentElement.style.textDecoration = "none";
-      this.parentElement.getElementsByTagName("img")[0].style.visibility = "hidden";
-    };
+    crossOut(this)
+    hideDeleteButton(this)
   });
 
   xImgArray[taskArray.length - 1].addEventListener("click", function () {
     this.parentElement.remove();
   });
 };
+
+function crossOut(task) {
+  const taskToCrossOut = task.parentElement;
+  if (task.checked) {
+    taskToCrossOut.classList.add("crossed-out");
+  } else {
+    taskToCrossOut.classList.remove("crossed-out");
+  };
+}
+
+function hideDeleteButton(task) {
+  if (task.checked) {
+    task.parentElement.getElementsByTagName("img")[0].style.visibility = "visible";
+  } else {
+    task.parentElement.getElementsByTagName("img")[0].style.visibility = "hidden";
+  };
+}
