@@ -9,52 +9,39 @@ function addNewTask() {
   const newTask = document.getElementById("new-task-field").value;
   if (newTask != "") {
     addTaskHtml(newTask);
-    addTaskEventListeners();
-    clearNewTaskField();
+    clearTaskField();
   }
 };
 
-function addTaskHtml(task) {
-  const inputHTML = '<input class="task-checkbox" type="checkbox">';
-  const imgHTML = '<img class="x-img" src="images/remove.png">'
-  const taskHTML = `<li class="task">${inputHTML} ${task}${imgHTML}</li>`
+function addTaskHtml(taskText) {
+  const node = document.createElement("li");
+  node.classList.add("task");
 
-  document.getElementById("task-list").insertAdjacentHTML("beforeend", taskHTML);
+  const checkbox = document.createElement("input");
+  checkbox.classList.add("task-checkbox");
+  checkbox.type = "checkbox";
+  checkbox.addEventListener("change", crossOut);
+
+  const text = document.createTextNode(taskText);
+
+  const deleteButton = document.createElement("img");
+  deleteButton.classList.add("x-img");
+  deleteButton.src = "images/remove.png";
+  deleteButton.addEventListener("click", removeTask);
+  
+  node.append(checkbox, text, deleteButton);
+  document.getElementById("task-list").append(node);
 }
 
-function addTaskEventListeners() {
-  const taskArray = document.getElementsByClassName("task");
-  const checkboxArray = document.getElementsByClassName("task-checkbox");
-  const xImgArray = document.getElementsByClassName("x-img");
-
-  checkboxArray[taskArray.length - 1].addEventListener("change", function () {
-    crossOut(this)
-    hideDeleteButton(this)
-  });
-
-  xImgArray[taskArray.length - 1].addEventListener("click", function () {
-    this.parentElement.remove();
-  });
+function removeTask() {
+  this.parentElement.remove();
 }
 
-function crossOut(task) {
-  const taskToCrossOut = task.parentElement;
-  if (task.checked) {
-    taskToCrossOut.classList.add("crossed-out");
-  } else {
-    taskToCrossOut.classList.remove("crossed-out");
-  };
+function crossOut() {
+  this.parentElement.classList.toggle("crossed-out");
 }
 
-function hideDeleteButton(task) {
-  if (task.checked) {
-    task.parentElement.getElementsByTagName("img")[0].style.visibility = "visible";
-  } else {
-    task.parentElement.getElementsByTagName("img")[0].style.visibility = "hidden";
-  };
-}
-
-function clearNewTaskField() {
+function clearTaskField() {
   document.getElementById("new-task-field").value = "";
   document.getElementById("new-task-field").focus();
 }
